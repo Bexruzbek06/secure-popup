@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Виджет безопасности</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <!-- Ссылка -->
+  <a href="#" id="secure-link" class="text-green-600 font-semibold underline cursor-pointer">
+    Подключение защищено
+  </a>
+
+  <!-- Попап -->
+  <div id="popup" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-xl shadow-2xl w-96 animate-fadeIn overflow-hidden">
+      <!-- Заголовок в стиле Chrome -->
+      <div class="flex items-center bg-green-600 text-white px-4 py-3">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 10V8a6 6 0 1112 0v2m-1 0H7v10h10V10z" />
+        </svg>
+        <h2 class="text-lg font-bold">Подключение защищено</h2>
+      </div>
+
+      <!-- Контент -->
+      <div class="p-5">
+        <p class="text-sm text-gray-700 mb-2">
+          Данные браузера Chrome подтверждают, что сертификат сайта выпущен компанией <b>WR2</b>.
+        </p>
+        <p class="text-sm text-gray-700 mb-2">
+          <b>Данные сертификата:</b> соединение с <code>sites.google.com</code> зашифровано с помощью современных наборов шифров.
+        </p>
+        <p class="text-sm text-gray-700 mb-2">
+          В этом подключении используется протокол <b>QUIC</b>.
+        </p>
+        <p class="text-sm text-gray-700 mb-2">
+          Соединение зашифровано и проверено с помощью <b>AES_128_GCM</b>. В качестве механизма обмена ключами используется <b>X25519MLKEM768</b>.
+        </p>
+        <p class="text-sm text-gray-600 italic mb-4">Что это значит?</p>
+
+        <button id="close-popup" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.25s ease-out;
+    }
+  </style>
+
+  <script>
+    const link = document.getElementById("secure-link");
+    const popup = document.getElementById("popup");
+    const closeBtn = document.getElementById("close-popup");
+
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      popup.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      popup.classList.add("hidden");
+    });
+
+    // закрытие по клику вне попапа
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) popup.classList.add("hidden");
+    });
+  </script>
+
+</body>
+</html>
